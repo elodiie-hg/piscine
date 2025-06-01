@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Créer un compte - AGORA FRANCIA</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.ico" type="image/x-icon" />
+  <script src="script.js" defer></script>
+  <style>
+  
+    body {
+      /*images de fallback et arrière-plan */
+      background-image: url('background-agora.jpg'), url('https://images.unsplash.com/photo-1555400961-f9fb10a5e5b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      background-color: #f0f2f5;
+    }
+
+    /*alternative avec un dégradé si l'image ne charge pas */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(57, 113, 148, 0.8) 0%, 
+        rgba(37, 45, 112, 0.9) 50%, 
+        rgba(57, 113, 148, 0.8) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="columns" x="0" y="0" width="20" height="100" patternUnits="userSpaceOnUse"><rect width="8" height="100" fill="rgba(255,255,255,0.05)"/><rect x="12" width="8" height="100" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23columns)"/></svg>');
+      z-index: -2;
+      opacity: 0.95;
+    }
+
+    /* Overlay pour améliorer lisibilité */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: -1;
+    }
+
+    .signup-page-container {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .signup-container {
+      max-width: 500px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signup-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #397194, #252d70);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .signup-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #397194, #252d70);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 32px;
+      box-shadow: 0 8px 20px rgba(57, 113, 148, 0.3);
+    }
+
+    .signup-title {
+      font-size: 28px;
+      color: #397194;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .signup-subtitle {
+      color: #666;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .signup-form {
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #397194;
+      box-shadow: 0 0 0 3px rgba(57, 113, 148, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-input::placeholder {
+      color: #999;
+    }
+
+    .form-input.valid {
+      border-color: #28a745;
+    }
+
+    .form-input.invalid {
+      border-color: #dc3545;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #397194;
+    }
+
+    .password-strength {
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .strength-meter {
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+
+    .strength-fill {
+      height: 100%;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .strength-weak { background: #dc3545; width: 25%; }
+    .strength-fair { background: #ffc107; width: 50%; }
+    .strength-good { background: #28a745; width: 75%; }
+    .strength-strong { background: #28a745; width: 100%; }
+
+    .field-validation {
+      font-size: 12px;
+      margin-top: 5px;
+      min-height: 16px;
+    }
+
+    .validation-success {
+      color: #28a745;
+    }
+
+    .validation-error {
+      color: #dc3545;
+    }
+
+    .terms-container {
+      margin: 25px 0;
+      padding: 15px;
+      background: rgba(57, 113, 148, 0.05);
+      border-radius: 10px;
+      border-left: 4px solid #397194;
+    }
+
+    .terms-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .custom-checkbox {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .custom-checkbox input {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark {
+      background: #397194;
+      border-color: #397194;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .custom-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .terms-text {
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .terms-link {
+      color: #397194;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .terms-link:hover {
+      text-decoration: underline;
+    }
+
+    .signup-button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #397194, #252d70);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(57, 113, 148, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .signup-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(57, 113, 148, 0.4);
+    }
+
+    .signup-button:active {
+      transform: translateY(0);
+    }
+
+    .signup-button:disabled {
+      opacity: 0.6;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 25px 0;
+      position: relative;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+
+    .divider span {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .login-prompt {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .login-link {
+      color: #397194;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .login-link:hover {
+      text-decoration: underline;
+      color: #252d70;
+    }
+
+    .error-message, .success-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .error-message {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      border-left: 4px solid #dc3545;
+    }
+
+    .success-message {
+      background: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      border-left: 4px solid #28a745;
+    }
+
+    .social-signup {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .social-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .social-btn:hover {
+      border-color: #397194;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .signup-page-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 150px);
+      }
+
+      .signup-container {
+        padding: 30px 25px;
+        margin: 0;
+      }
+
+      .signup-title {
+        font-size: 24px;
+      }
+
+      .social-signup {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .signup-container {
+        padding: 25px 20px;
+      }
+
+      .form-input {
+        padding: 12px 16px;
+      }
+
+      .signup-button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <!-- Barre sup -->
+    <div class="header-top">
+      <div class="header-top-content">
+        <div class="header-top-left">
+          🏠 Toute la France
+        </div>
+        <div class="header-top-right">
+          <a href="mentions.html">Mentions légales</a>
+          <a href="conf.html">Politique de Confidentialité</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="header-main-content">
+
+        <div class="burger-container">
+          <button class="header-burger" onclick="toggleHeaderDropdown()">☰Menu</button>
+          <div class="header-dropdown" id="headerDropdown">
+            <ul>
+              <li><a href="accueil.php"><span class="menu-icon">🏠</span>Accueil</a></li>
+              <li><a href="toutparcourir.php"><span class="menu-icon">🔍</span>Tout parcourir</a></li>
+              <li><a href="notification.php"><span class="menu-icon">🔔</span>Notifications</a></li>
+              <li><a href="panier.php"><span class="menu-icon">🛒</span>Panier</a></li>
+              <li><a href="redirection.php"><span class="menu-icon">👤</span>Votre compte</a></li>
+            </ul>
+          </div>  
+        </div>
+
+        <div class="logo-section">
+          <a href="accueil.php">
+            <img src="logo2.jpeg" alt="Logo Agora Francia" class="logo"/>
+          </a>
+          <h1>AGORA FRANCIA</h1>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="search-container">
+          <form class="search-form">
+            <input type="text" class="search-input" placeholder="Que recherchez-vous ?">
+            <input type="text" class="location-input" placeholder="Où ?">
+            <button type="submit" class="search-btn">🔍</button>
+          </form>
+        </div>
+
+        <!-- Actions utilisateur -->
+        <div class="header-actions">
+            <a href="inscription.php" class="auth-btn">S'inscrire</a>
+            <a href="connexion.php" class="auth-btn primary">Se connecter</a>
+          <?php endif; ?>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- nav -->
+    <nav class="nav-bar">
+      <div class="nav-content">
+        <ul class="nav-menu">
+          <li><a href="accueil.php">Accueil</a></li>
+          <li><a href="toutparcourir.php">Tout parcourir</a></li>
+          <li><a href="notification.php">Notifications</a></li>
+          <li><a href="panier.php">Panier</a></li>
+          <li><a href="redirection.php">Votre compte</a></li>
+        </ul>
+        <div class="header-top-right">
+          <a href="mailto:agorafrancia@gmail.com">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="signup-page-container">
+      <div class="signup-container">
+        
+        <!-- En-tête d'inscription -->
+        <div class="signup-header">
+          <div class="signup-icon">
+            ✨
+          </div>
+          <h1 class="signup-title">Rejoignez-nous !</h1>
+          <p class="signup-subtitle">Créez votre compte Agora Francia en quelques minutes</p>
+        </div>
+
+        <!-- Messages d'erreur/succès -->
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <!-- Connexions sociales -->
+        <div class="social-signup">
+          <button type="button" class="social-btn" onclick="signupWithGoogle()">
+            🔗 Google
+          </button>
+          <button type="button" class="social-btn" onclick="signupWithFacebook()">
+            📘 Facebook
+          </button>
+        </div>
+
+        <div class="divider">
+          <span>ou créez votre compte</span>
+        </div>
+
+        <!-- Formulaire inscription -->
+        <form id="signupForm" class="signup-form" action="inscription.php" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="username">Nom d'utilisateur</label>
+            <input 
+              type="text" 
+              id="username"
+              name="username" 
+              class="form-input"
+              placeholder="Choisissez un nom d'utilisateur"
+              required 
+              oninput="validateUsername()"
+            />
+            <div id="usernameValidation" class="field-validation"></div>
+          </div>
+
+          <div class="form-group">
+              <label class="form-label" for="username">Nom Prénom</label>
+              <input 
+                type="text" 
+                id="nom"
+                name="nom" 
+                class="form-input"
+                placeholder="Votre Nom Prénom"
+                required 
+                oninput="validateUsername()"
+              />
+              <div id="usernameValidation" class="field-validation"></div>
+            </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Adresse e-mail</label>
+            <input 
+              type="email" 
+              id="email"
+              name="email" 
+              class="form-input"
+              placeholder="votre@email.com"
+              required 
+              oninput="validateEmail()"
+            />
+            <div id="emailValidation" class="field-validation"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Mot de passe</label>
+            <div class="password-container">
+              <input 
+                type="password" 
+                id="password"
+                name="password" 
+                class="form-input"
+                placeholder="Créez un mot de passe sécurisé"
+                required 
+                oninput="validatePassword()"
+              />
+              <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                👁️
+              </button>
+            </div>
+            <div class="password-strength">
+              <div class="strength-meter">
+                <div id="strengthFill" class="strength-fill"></div>
+              </div>
+              <div id="strengthText" style="margin-top: 5px; font-size: 12px; color: #666;"></div>
+            </div>
+            <div id="passwordValidation" class="field-validation"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirmer le mot de passe</label>
+            <div class="password-container">
+              <input 
+                type="password" 
+                id="confirmPassword"
+                name="confirm_password" 
+                class="form-input"
+                placeholder="Confirmez votre mot de passe"
+                required 
+                oninput="validatePasswordMatch()"
+              />
+              <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                👁️
+              </button>
+            </div>
+            <div id="confirmPasswordValidation" class="field-validation"></div>
+          </div>
+
+          <div class="terms-container">
+            <label class="terms-checkbox" for="terms">
+              <div class="custom-checkbox">
+                <input type="checkbox" id="terms" name="terms" required onchange="validateTerms()">
+                <span class="checkmark"></span>
+              </div>
+              <div class="terms-text">
+                J'accepte les <a href="mentions.html" class="terms-link" target="_blank">conditions d'utilisation</a> 
+                et la <a href="conf.html" class="terms-link" target="_blank">politique de confidentialité</a>
+              </div>
+            </label>
+          </div>
+
+          <button type="submit" class="signup-button" id="signupButton" disabled>
+            Créer mon compte
+          </button>
+        </form>
+
+        <!-- Lien de connexion -->
+        <div class="login-prompt">
+          Vous avez déjà un compte ?
+          <a href="connexion.html" class="login-link">Se connecter</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 ING2 TD3 GP1. Tous droits réservés.</p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      Contactez-nous :
+      <a href="mailto:agorafrancia@gmail.com" style="text-decoration: none; color: inherit;">agorafrancia@gmail.com</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="mentions.html" class="legal-link">Mentions légales</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="conf.html" class="legal-link">Politique de Confidentialité</a>
+    </p>
+  </footer>
+
+  <script>
+    //variables globales
+    let passwordVisible = false;
+    let confirmPasswordVisible = false;
+    let formValid = {
+      username: false,
+      email: false,
+      password: false,
+      confirmPassword: false,
+      terms: false
+    };
+
+    //fonction pour basculer visibilité du mdp
+    function togglePassword(fieldId) {
+      const passwordInput = document.getElementById(fieldId);
+      const toggleButton = passwordInput.nextElementSibling;
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = '👁️';
+      }
+    }
+
+    //validation du nom d'utilisateur
+    function validateUsername() {
+      const username = document.getElementById('username');
+      const validation = document.getElementById('usernameValidation');
+      const value = username.value.trim();
+      
+      if (value.length === 0) {
+        validation.textContent = '';
+        username.classList.remove('valid', 'invalid');
+        formValid.username = false;
+      } else if (value.length < 3) {
+        validation.textContent = 'Le nom d\'utilisateur doit contenir au moins 3 caractères';
+        validation.className = 'field-validation validation-error';
+        username.classList.remove('valid');
+        username.classList.add('invalid');
+        formValid.username = false;
+      } else if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
+        validation.textContent = 'Seules les lettres, chiffres, tirets et underscores sont autorisés';
+        validation.className = 'field-validation validation-error';
+        username.classList.remove('valid');
+        username.classList.add('invalid');
+        formValid.username = false;
+      } else {
+        validation.textContent = '✓ Nom d\'utilisateur valide';
+        validation.className = 'field-validation validation-success';
+        username.classList.remove('invalid');
+        username.classList.add('valid');
+        formValid.username = true;
+      }
+      
+      updateSubmitButton();
+    }
+
+    //validation mail
+    function validateEmail() {
+      const email = document.getElementById('email');
+      const validation = document.getElementById('emailValidation');
+      const value = email.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (value.length === 0) {
+        validation.textContent = '';
+        email.classList.remove('valid', 'invalid');
+        formValid.email = false;
+      } else if (!emailRegex.test(value)) {
+        validation.textContent = 'Veuillez entrer une adresse e-mail valide';
+        validation.className = 'field-validation validation-error';
+        email.classList.remove('valid');
+        email.classList.add('invalid');
+        formValid.email = false;
+      } else {
+        validation.textContent = '✓ Adresse e-mail valide';
+        validation.className = 'field-validation validation-success';
+        email.classList.remove('invalid');
+        email.classList.add('valid');
+        formValid.email = true;
+      }
+      
+      updateSubmitButton();
+    }
+
+    //validation mdp
+    function validatePassword() {
+      const password = document.getElementById('password');
+      const validation = document.getElementById('passwordValidation');
+      const strengthFill = document.getElementById('strengthFill');
+      const strengthText = document.getElementById('strengthText');
+      const value = password.value;
+      
+      if (value.length === 0) {
+        validation.textContent = '';
+        strengthFill.className = 'strength-fill';
+        strengthText.textContent = '';
+        password.classList.remove('valid', 'invalid');
+        formValid.password = false;
+        return;
+      }
+      
+      let score = 0;
+      let feedback = [];
+      
+      //critères de force
+      if (value.length >= 8) score++;
+      else feedback.push('Au moins 8 caractères');
+      
+      if (/[a-z]/.test(value)) score++;
+      else feedback.push('Une minuscule');
+      
+      if (/[A-Z]/.test(value)) score++;
+      else feedback.push('Une majuscule');
+      
+      if (/[0-9]/.test(value)) score++;
+      else feedback.push('Un chiffre');
+      
+      if (/[^a-zA-Z0-9]/.test(value)) score++;
+      else feedback.push('Un caractère spécial');
+      
+      //maj visuelle
+      strengthFill.className = 'strength-fill';
+      if (score <= 2) {
+        strengthFill.classList.add('strength-weak');
+        strengthText.textContent = 'Faible';
+        strengthText.style.color = '#dc3545';
+        formValid.password = false;
+      } else if (score === 3) {
+        strengthFill.classList.add('strength-fair');
+        strengthText.textContent = 'Moyen';
+        strengthText.style.color = '#ffc107';
+        formValid.password = false;
+      } else if (score === 4) {
+        strengthFill.classList.add('strength-good');
+        strengthText.textContent = 'Bon';
+        strengthText.style.color = '#28a745';
+        formValid.password = true;
+      } else {
+        strengthFill.classList.add('strength-strong');
+        strengthText.textContent = 'Excellent';
+        strengthText.style.color = '#28a745';
+        formValid.password = true;
+      }
+      
+      if (formValid.password) {
+        validation.textContent = '✓ Mot de passe sécurisé';
+        validation.className = 'field-validation validation-success';
+        password.classList.remove('invalid');
+        password.classList.add('valid');
+      } else {
+        validation.textContent = 'Manque: ' + feedback.join(', ');
+        validation.className = 'field-validation validation-error';
+        password.classList.remove('valid');
+        password.classList.add('invalid');
+      }
+      
+      // Re-valider la confirmation si elle existe
+      if (document.getElementById('confirmPassword').value) {
+        validatePasswordMatch();
+      }
+      
+      updateSubmitButton();
+    }
+
+    //validation de la confirmation du mdp
+    function validatePasswordMatch() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword');
+      const validation = document.getElementById('confirmPasswordValidation');
+      const value = confirmPassword.value;
+      
+      if (value.length === 0) {
+        validation.textContent = '';
+        confirmPassword.classList.remove('valid', 'invalid');
+        formValid.confirmPassword = false;
+      } else if (value !== password) {
+        validation.textContent = 'Les mots de passe ne correspondent pas';
+        validation.className = 'field-validation validation-error';
+        confirmPassword.classList.remove('valid');
+        confirmPassword.classList.add('invalid');
+        formValid.confirmPassword = false;
+      } else {
+        validation.textContent = '✓ Mots de passe identiques';
+        validation.className = 'field-validation validation-success';
+        confirmPassword.classList.remove('invalid');
+        confirmPassword.classList.add('valid');
+        formValid.confirmPassword = true;
+      }
+      
+      updateSubmitButton();
+    }
+
+    // Validation des conditions d'utilisation
+    function validateTerms() {
+      const terms = document.getElementById('terms');
+      formValid.terms = terms.checked;
+      updateSubmitButton();
+    }
+
+    //maj du bouton de soumission
+    function updateSubmitButton() {
+      const submitButton = document.getElementById('signupButton');
+      const allValid = Object.values(formValid).every(valid => valid);
+      
+      submitButton.disabled = !allValid;
+      
+      if (allValid) {
+        submitButton.style.opacity = '1';
+        submitButton.style.cursor = 'pointer';
+      } else {
+        submitButton.style.opacity = '0.6';
+        submitButton.style.cursor = 'not-allowed';
+      }
+    }
+
+    //Fonction pour l'inscription Google 
+    function signupWithGoogle() {
+      showError('Inscription Google temporairement indisponible. Utilisez le formulaire d\'inscription.');
+    }
+
+    // Fonction pour l'inscription Facebook 
+    function signupWithFacebook() {
+      showError('Inscription Facebook temporairement indisponible. Utilisez le formulaire d\'inscription.');
+    }
+
+    // Fonction pour vérifier disponibilité du nom d'utilisateur 
+    function checkUsernameAvailability(username) {
+      // Simulation d'appel API 
+      const unavailableUsernames = ['admin', 'test', 'demo', 'agora', 'francia'];
+      return !unavailableUsernames.includes(username.toLowerCase());
+    }
+
+    // Amélioration de la validation du nom d'utilisateur avec vérification de disponibilité
+    let usernameCheckTimeout;
+    function validateUsernameWithAvailability() {
+      clearTimeout(usernameCheckTimeout);
+      
+      const username = document.getElementById('username');
+      const validation = document.getElementById('usernameValidation');
+      const value = username.value.trim();
+      
+      // Validation de base d'abord
+      validateUsername();
+      
+      // Si la validation de base est OK, vérifier la disponibilité
+      if (formValid.username && value.length >= 3) {
+        validation.textContent = 'Vérification de la disponibilité...';
+        validation.className = 'field-validation';
+        validation.style.color = '#666';
+        
+        usernameCheckTimeout = setTimeout(() => {
+          if (checkUsernameAvailability(value)) {
+            validation.textContent = '✓ Nom d\'utilisateur disponible';
+            validation.className = 'field-validation validation-success';
+            formValid.username = true;
+          } else {
+            validation.textContent = 'Ce nom d\'utilisateur n\'est pas disponible';
+            validation.className = 'field-validation validation-error';
+            username.classList.remove('valid');
+            username.classList.add('invalid');
+            formValid.username = false;
+          }
+          updateSubmitButton();
+        }, 1000);
+      }
+    }
+
+    // Animation d'entrée
+    function animateSignup() {
+      const signupContainer = document.querySelector('.signup-container');
+      signupContainer.style.opacity = '0';
+      signupContainer.style.transform = 'translateY(30px)';
+      
+      setTimeout(() => {
+        signupContainer.style.transition = 'all 0.6s ease';
+        signupContainer.style.opacity = '1';
+        signupContainer.style.transform = 'translateY(0)';
+      }, 200);
+    }
+
+    // Gestion des animations de focus
+    function setupFocusAnimations() {
+      const inputs = document.querySelectorAll('.form-input');
+      
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+          this.parentElement.style.transition = 'transform 0.2s ease';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+    }
+
+    // Gestion touche Entrée
+    function setupKeyboardHandlers() {
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !document.getElementById('signupButton').disabled) {
+          const signupForm = document.getElementById('signupForm');
+          signupForm.dispatchEvent(new Event('submit'));
+        }
+      });
+    }
+
+    //Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page Inscription - Agora Francia chargée');
+      
+      // Configurer les animations
+      animateSignup();
+      setupFocusAnimations();
+      setupKeyboardHandlers();
+      
+      // Mettre à jour l'état initial du bouton
+      updateSubmitButton();
+      
+      // Remplacer la validation simple par celle avec vérification de disponibilité
+      document.getElementById('username').oninput = validateUsernameWithAvailability;
+      
+      // Message de bienvenue après un délai
+      setTimeout(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromLogin = urlParams.get('from');
+        
+        if (fromLogin === 'login') {
+          showSuccess('Créez votre compte pour accéder à toutes les fonctionnalités !');
+        }
+      }, 500);
+    });
+
+    // Fonction pour pré-remplir le formulaire
+    function fillTestData() {
+      document.getElementById('username').value = 'testuser' + Math.floor(Math.random() * 1000);
+      document.getElementById('email').value = 'test' + Math.floor(Math.random() * 1000) + '@example.com';
+      document.getElementById('password').value = 'TestPassword123!';
+      document.getElementById('confirmPassword').value = 'TestPassword123!';
+      document.getElementById('terms').checked = true;
+      
+      // Déclencher les validations
+      validateUsernameWithAvailability();
+      validateEmail();
+      validatePassword();
+      validatePasswordMatch();
+      validateTerms();
+    }
+
+    // Fonction pour sauvegarder les données du formulaire si on ferma la page sans faire exprès 
+    function saveFormData() {
+      const formData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        timestamp: Date.now()
+      };
+      
+      try {
+        sessionStorage.setItem('signupFormData', JSON.stringify(formData));
+      } catch (e) {
+        console.warn('Impossible de sauvegarder les données du formulaire');
+      }
+    }
+
+    // Fonction pour restaurer les données du formulaire
+    function restoreFormData() {
+      try {
+        const savedData = sessionStorage.getItem('signupFormData');
+        if (savedData) {
+          const formData = JSON.parse(savedData);
+          
+          // Vérifier que les données ne sont pas trop anciennes, 30 min
+          if (Date.now() - formData.timestamp < 30 * 60 * 1000) {
+            document.getElementById('username').value = formData.username || '';
+            document.getElementById('email').value = formData.email || '';
+            
+            // Déclencher les validations si des données existent
+            if (formData.username) validateUsernameWithAvailability();
+            if (formData.email) validateEmail();
+          } else {
+            // Supprimer les données expirées
+            sessionStorage.removeItem('signupFormData');
+          }
+        }
+      } catch (e) {
+        console.warn('Impossible de restaurer les données du formulaire');
+      }
+    }
+
+    // Sauvegarder automatiquement les données pendant la saisie
+    document.addEventListener('DOMContentLoaded', function() {
+      restoreFormData();
+      
+      // Sauvegarder à chaque modification
+      ['username', 'email'].forEach(fieldId => {
+        document.getElementById(fieldId).addEventListener('input', saveFormData);
+      });
+      
+      // Nettoyer les données sauvegardées après soumission réussie
+      document.getElementById('signupForm').addEventListener('submit', function() {
+        setTimeout(() => {
+          sessionStorage.removeItem('signupFormData');
+        }, 1000);
+      });
+    });
+
+    // Double-clic sur le titre pour remplir les données de test 
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('.signup-title').addEventListener('dblclick', function() {
+        if (confirm('Remplir avec des données de test ?')) {
+          fillTestData();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
