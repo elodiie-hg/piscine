@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGORA FRANCIA</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.ico" type="image/png" />
+  <script src="script.js" defer></script>
+  <style>
+     body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: #252d70;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      border-left: 5px solid #397194;
+      padding-left: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    strong {
+      color: #397194;
+    }
+
+    footer {
+      background-color: #252d70;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #a8d0e6;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    .logo-section img {
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <!-- Barre sup -->
+    <div class="header-top">
+      <div class="header-top-content">
+        <div class="header-top-left">
+          🏠 Toute la France
+        </div>
+        <div class="header-top-right">
+          <a href="mentions.html">Mentions légales</a>
+          <a href="conf.html">Politique de Confidentialité</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="header-main-content">
+        <div class="burger-container">
+          <button class="header-burger" onclick="toggleHeaderDropdown()">☰Menu</button>
+          <div class="header-dropdown" id="headerDropdown">
+            <ul>
+              <li><a href="accueil.php"><span class="menu-icon">🏠</span>Accueil</a></li>
+              <li><a href="toutparcourir.php"><span class="menu-icon">🔍</span>Tout parcourir</a></li>
+              <li><a href="notification.php"><span class="menu-icon">🔔</span>Notifications</a></li>
+              <li><a href="panier.php"><span class="menu-icon">🛒</span>Panier</a></li>
+              <li><a href="redirection.php"><span class="menu-icon">👤</span>Votre compte</a></li>
+            </ul>
+          </div>  
+        </div>
+        <div class="logo-section">
+          <a href="accueil.php">
+            <img src="logo2.jpeg" alt="Logo Agora Francia" class="logo"/>
+          </a>
+          <h1>AGORA FRANCIA</h1>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-bar">
+      <div class="nav-content">
+        <ul class="nav-menu">
+          <li><a href="accueil.php">Accueil</a></li>
+          <li><a href="toutparcourir.php">Tout parcourir</a></li>
+          <li><a href="notification.php">Notifications</a></li>
+          <li><a href="panier.php">Panier</a></li>
+          <li><a href="redirection.php">Votre compte</a></li>
+        </ul>
+        <div class="header-top-right">
+          <a href="mailto:agorafrancia@gmail.com">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <main>
+    <section>
+        <h2>Introduction</h2>
+        <p>La présente politique de confidentialité a pour objectif de vous informer sur la manière dont AGORA FRANCIA collecte, utilise et protège vos informations personnelles.</p>
+    </section>
+
+    <section>
+        <h2>1. Collecte des informations</h2>
+        <p>Nous collectons des informations personnelles lorsque vous interagissez avec notre site, notamment lorsque vous nous contactez via le formulaire de contact.</p>
+    </section>
+
+    <section>
+        <h2>2. Utilisation des informations</h2>
+        <p>Les informations collectées sont utilisées pour répondre à vos demandes, améliorer nos services, et vous fournir des informations pertinentes.</p>
+    </section>
+
+    <section>
+        <h2>3. Protection des données</h2>
+        <p>Nous mettons en place des mesures de sécurité pour protéger vos informations personnelles contre tout accès non autorisé.</p>
+    </section>
+
+    <section>
+        <h2>4. Vos droits</h2>
+        <p>Vous avez le droit d'accéder, de rectifier ou de supprimer vos informations personnelles. Pour toute demande, veuillez nous contacter.</p>
+    </section>
+
+    <section>
+        <h2>5. Modifications de la politique</h2>
+        <p>Nous pouvons modifier cette politique de confidentialité à tout moment. Veuillez consulter régulièrement cette page pour prendre connaissance des changements.</p>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>Pour toute question concernant notre politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:agorafrancia@gmail.com">bpalmconsulting@gmail.com</a></p>
+    </section>
+</main>
+  
+  <footer>
+    <p>&copy; 2025 ING2 TD3 GP1. Tous droits réservés.</p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      Contactez-nous :
+      <a href="mailto:agorafrancia@gmail.com" style="text-decoration: none; color: inherit;">agorafrancia@gmail.com</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="mentions.html" class="legal-link">Mentions légales</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="conf.html" class="legal-link">Politique de Confidentialité</a>
+    </p>
+  </footer>
+</body>
+
+</html>
