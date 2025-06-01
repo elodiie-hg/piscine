@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Se connecter - AGORA FRANCIA</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.ico" type="image/x-icon" />
+  <script src="script.js" defer></script>
+  <style>
+    /*styles de base pour une page de connexion */
+    body {
+      /*images de fallback et arrière-plan */
+      background-image: url('background-agora.jpg'), url('https://images.unsplash.com/photo-1555400961-f9fb10a5e5b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      background-color: #f0f2f5;
+    }
+
+    /*alternative avec un dégradé si l'image ne charge pas */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(57, 113, 148, 0.8) 0%, 
+        rgba(37, 45, 112, 0.9) 50%, 
+        rgba(57, 113, 148, 0.8) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="columns" x="0" y="0" width="20" height="100" patternUnits="userSpaceOnUse"><rect width="8" height="100" fill="rgba(255,255,255,0.05)"/><rect x="12" width="8" height="100" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23columns)"/></svg>');
+      z-index: -2;
+      opacity: 0.95;
+    }
+
+    .login-page-container {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .login-container {
+      max-width: 450px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #397194, #252d70);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #397194, #252d70);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 32px;
+      box-shadow: 0 8px 20px rgba(57, 113, 148, 0.3);
+    }
+
+    .login-title {
+      font-size: 28px;
+      color: #397194;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .login-subtitle {
+      color: #666;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .login-form {
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #397194;
+      box-shadow: 0 0 0 3px rgba(57, 113, 148, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-input::placeholder {
+      color: #999;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #397194;
+    }
+
+    .user-type-selector {
+      margin-bottom: 20px;
+    }
+
+    .user-type-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .user-type-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .user-type-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .user-type-label {
+      display: block;
+      padding: 12px 20px;
+      text-align: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .user-type-option input[type="radio"]:checked + .user-type-label {
+      background: #397194;
+      color: white;
+      border-color: #397194;
+    }
+
+    .user-type-label:hover {
+      border-color: #397194;
+      background: rgba(57, 113, 148, 0.05);
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .custom-checkbox {
+      position: relative;
+      width: 18px;
+      height: 18px;
+    }
+
+    .custom-checkbox input {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark {
+      background: #397194;
+      border-color: #397194;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .custom-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .remember-label {
+      color: #333;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .forgot-password {
+      color: #397194;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+      color: #252d70;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #397194, #252d70);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(57, 113, 148, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(57, 113, 148, 0.4);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .login-button:disabled {
+      opacity: 0.6;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 25px 0;
+      position: relative;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+
+    .divider span {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .social-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .social-btn:hover {
+      border-color: #397194;
+      transform: translateY(-2px);
+    }
+
+    .signup-prompt {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .signup-link {
+      color: #397194;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .signup-link:hover {
+      text-decoration: underline;
+      color: #252d70;
+    }
+
+    .error-message {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #dc3545;
+      font-size: 14px;
+      display: none;
+    }
+
+    .success-message {
+      background: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #28a745;
+      font-size: 14px;
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .login-page-container {
+        padding: 20px 15px;
+        min-height: calc(100vh - 150px);
+      }
+
+      .login-container {
+        padding: 30px 25px;
+        margin: 0;
+      }
+
+      .login-title {
+        font-size: 24px;
+      }
+
+      .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .social-login {
+        flex-direction: column;
+      }
+
+      .user-type-options {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px 20px;
+      }
+
+      .form-input {
+        padding: 12px 16px;
+      }
+
+      .login-button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <!-- Barre sup -->
+    <div class="header-top">
+      <div class="header-top-content">
+        <div class="header-top-left">
+          🏠 Toute la France
+        </div>
+        <div class="header-top-right">
+          <a href="mentions.html">Mentions légales</a>
+          <a href="conf.html">Politique de Confidentialité</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="header-main-content">
+
+        <div class="burger-container">
+          <button class="header-burger" onclick="toggleHeaderDropdown()">☰Menu</button>
+          <div class="header-dropdown" id="headerDropdown">
+            <ul>
+              <li><a href="accueil.php"><span class="menu-icon">🏠</span>Accueil</a></li>
+              <li><a href="toutparcourir.php"><span class="menu-icon">🔍</span>Tout parcourir</a></li>
+              <li><a href="notification.php"><span class="menu-icon">🔔</span>Notifications</a></li>
+              <li><a href="panier.php"><span class="menu-icon">🛒</span>Panier</a></li>
+              <li><a href="redirection.php"><span class="menu-icon">👤</span>Votre compte</a></li>
+            </ul>
+          </div>  
+        </div>
+
+        <div class="logo-section">
+          <a href="accueil.php">
+            <img src="logo2.jpeg" alt="Logo Agora Francia" class="logo"/>
+          </a>
+          <h1>AGORA FRANCIA</h1>
+        </div>
+        <!-- Barre de recherche -->
+        <div class="search-container">
+          <form class="search-form">
+            <input type="text" class="search-input" placeholder="Que recherchez-vous ?">
+            <input type="text" class="location-input" placeholder="Où ?">
+            <button type="submit" class="search-btn">🔍</button>
+          </form>
+        </div>
+
+        <div class="header-actions">
+            <a href="inscription.php" class="auth-btn">S'inscrire</a>
+            <a href="connexion.php" class="auth-btn primary">Se connecter</a>
+          <?php endif; ?>
+        </div>
+
+      </div>
+    </div>
+
+    <nav class="nav-bar">
+      <div class="nav-content">
+        <ul class="nav-menu">
+          <li><a href="accueil.php">Accueil</a></li>
+          <li><a href="toutparcourir.php">Tout parcourir</a></li>
+          <li><a href="notification.php">Notifications</a></li>
+          <li><a href="panier.php">Panier</a></li>
+          <li><a href="redirection.php">Votre compte</a></li>
+        </ul>
+        <div class="header-top-right">
+          <a href="mailto:agorafrancia@gmail.com">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="login-page-container">
+      <div class="login-container">
+        <div class="login-header">
+          <div class="login-icon">
+            👤
+          </div>
+          <h1 class="login-title">Bienvenue !</h1>
+          <p class="login-subtitle">Connectez-vous à votre compte Agora Francia</p>
+        </div>
+        <!-- messages erreur/succès -->
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+     
+        <form id="loginForm" class="login-form" action="connexion.php" method="POST">
+          <!-- Sélecteur type utilisateur -->
+          <div class="form-group user-type-selector">
+            <label class="form-label">Type de compte</label>
+            <div class="user-type-options">
+              <div class="user-type-option">
+                <input type="radio" id="acheteur" name="user_type" value="acheteur" checked>
+                <label for="acheteur" class="user-type-label">Acheteur</label>
+              </div>
+              <div class="user-type-option">
+                <input type="radio" id="vendeur" name="user_type" value="vendeur">
+                <label for="vendeur" class="user-type-label">Vendeur</label>
+              </div>
+              <div class="user-type-option">
+                <input type="radio" id="admin" name="user_type" value="admin">
+                <label for="admin" class="user-type-label">Admin</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="username">Nom d'utilisateur</label>
+            <input 
+              type="text" 
+              id="username"
+              name="username" 
+              class="form-input"
+              placeholder="Entrez votre nom d'utilisateur"
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Mot de passe</label>
+            <div class="password-container">
+              <input 
+                type="password" 
+                id="password"
+                name="password" 
+                class="form-input"
+                placeholder="Entrez votre mot de passe"
+                required 
+              />
+              <button type="button" class="password-toggle" onclick="togglePassword()">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <div class="remember-forgot">
+            <label class="remember-me" for="rememberMe">
+              <div class="custom-checkbox">
+                <input type="checkbox" id="rememberMe" name="remember_me">
+                <span class="checkmark"></span>
+              </div>
+              <span class="remember-label">Se souvenir de moi</span>
+            </label>
+            <a href="mot-de-passe-oublie.html" class="forgot-password">Mot de passe oublié ?</a>
+          </div>
+
+          <button type="submit" class="login-button" id="loginButton">
+            Se connecter
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>ou connectez-vous avec</span>
+        </div>
+
+        <div class="social-login">
+          <button type="button" class="social-btn" onclick="loginWithGoogle()">
+            🔗 Google
+          </button>
+          <button type="button" class="social-btn" onclick="loginWithFacebook()">
+            📘 Facebook
+          </button>
+        </div>
+
+        <div class="signup-prompt">
+          Pas encore de compte ?
+          <a href="inscription.html" class="signup-link">Créer un compte</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 ING2 TD3 GP1. Tous droits réservés.</p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      Contactez-nous :
+      <a href="mailto:agorafrancia@gmail.com" style="text-decoration: none; color: inherit;">agorafrancia@gmail.com</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="mentions.html" class="legal-link">Mentions légales</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="conf.html" class="legal-link">Politique de Confidentialité</a>
+    </p>
+  </footer>
+
+  <script>
+    //variables globales
+    let isPasswordVisible = false;
+    //fonction pour basculer visibilité du mdp
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleButton = document.querySelector('.password-toggle');
+      isPasswordVisible = !isPasswordVisible;
+      if (isPasswordVisible) {
+        passwordInput.type = 'text';
+        toggleButton.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = '👁️';
+      }
+    }
+    //fonction pour afficher message d'erreur
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+      //masquer après 5s
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 5000);
+    }
+    //fonction pour afficher message de succès
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+      //masquer après 3s
+      setTimeout(() => {
+        successDiv.style.display = 'none';
+      }, 3000);
+    }
+    //fonction pour la connexion Google
+    function loginWithGoogle() {
+      showError('Connexion Google temporairement indisponible. Utilisez le formulaire de connexion.');
+    }
+    //fonction pour la connexion Facebook 
+    function loginWithFacebook() {
+      showError('Connexion Facebook temporairement indisponible. Utilisez le formulaire de connexion.');
+    }
+    //fonction pour charger un utilisateur mémorisé
+    function loadRememberedUser() {
+      const rememberedUser = localStorage.getItem('agoraRememberUser');
+      if (rememberedUser) {
+        document.getElementById('username').value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+      }
+    }
+    //validation en temps réel
+    function setupRealTimeValidation() {
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      
+      usernameInput.addEventListener('input', function() {
+        if (this.value.length > 0 && this.value.length < 3) {
+          this.style.borderColor = '#ffc107';
+        } else if (this.value.length >= 3) {
+          this.style.borderColor = '#28a745';
+        } else {
+          this.style.borderColor = '#e0e0e0';
+        }
+      });
+  
+      passwordInput.addEventListener('input', function() {
+        if (this.value.length > 0 && this.value.length < 6) {
+          this.style.borderColor = '#dc3545';
+        } else if (this.value.length >= 6) {
+          this.style.borderColor = '#28a745';
+        } else {
+          this.style.borderColor = '#e0e0e0';
+        }
+      });
+    }
+
+    //animation d'entrée
+    function animateLogin() {
+      const loginContainer = document.querySelector('.login-container');
+      loginContainer.style.opacity = '0';
+      loginContainer.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        loginContainer.style.transition = 'all 0.6s ease';
+        loginContainer.style.opacity = '1';
+        loginContainer.style.transform = 'translateY(0)';
+      }, 200);
+    }
+
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page Connexion - Agora Francia chargée');
+      // Charger l'utilisateur mémorisé
+      loadRememberedUser();
+      // Configurer la validation en temps réel
+      setupRealTimeValidation();
+      // Animer l'entrée
+      animateLogin();
+      
+      // Gérer les messages de retour PHP
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+      const success = urlParams.get('success');
+      
+      if (error) {
+        showError(decodeURIComponent(error));
+      }
+      
+      if (success) {
+        showSuccess(decodeURIComponent(success));
+      }
+      // Message de bienvenue après inscription
+      const fromRegistration = urlParams.get('registered');
+      if (fromRegistration === 'true') {
+        showSuccess('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+      }
+    });
+
+    // Gestion du focus pour améliorer l'accessibilité
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('.form-input');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+          this.parentElement.style.transition = 'transform 0.2s ease';
+        });
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+    });
+
+    // Gestion du formulaire avant soumission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const loginButton = document.getElementById('loginButton');
+      if (!username || !password) {
+        e.preventDefault();
+        showError('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      if (password.length < 6) {
+        e.preventDefault();
+        showError('Le mot de passe doit contenir au moins 6 caractères.');
+        return;
+      }
+      // Désactiver bouton et afficher un message de chargement
+      loginButton.disabled = true;
+      loginButton.textContent = 'Connexion en cours...';
+      // Sauvegarder nom utilisateur si "Se souvenir de moi" est coché
+      if (document.getElementById('rememberMe').checked) {
+        localStorage.setItem('agoraRememberUser', username);
+      } else {
+        localStorage.removeItem('agoraRememberUser');
+      }
+    });
+  </script>
+</body>
+</html>
