@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGORA FRANCIA</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.ico" type="image/png" />
+  <script src="script.js" defer></script>
+
+  <style>
+     body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: #252d70;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      border-left: 5px solid #397194;
+      padding-left: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    strong {
+      color: #397194;
+    }
+
+    footer {
+      background-color: #252d70;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #a8d0e6;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    .logo-section img {
+      height: 50px;
+    }
+  </style>
+
+</head>
+<body>
+  <header class="header">
+    <div class="header-top">
+      <div class="header-top-content">
+        <div class="header-top-left">
+          🏠 Toute la France
+        </div>
+        <div class="header-top-right">
+          <a href="mentions.html">Mentions légales</a>
+          <a href="conf.html">Politique de Confidentialité</a>
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="header-main-content">
+
+        <div class="burger-container">
+          <button class="header-burger" onclick="toggleHeaderDropdown()">☰Menu</button>
+          <div class="header-dropdown" id="headerDropdown">
+            <ul>
+              <li><a href="accueil.php"><span class="menu-icon">🏠</span>Accueil</a></li>
+              <li><a href="toutparcourir.php"><span class="menu-icon">🔍</span>Tout parcourir</a></li>
+              <li><a href="notification.php"><span class="menu-icon">🔔</span>Notifications</a></li>
+              <li><a href="panier.php"><span class="menu-icon">🛒</span>Panier</a></li>
+              <li><a href="redirection.php"><span class="menu-icon">👤</span>Votre compte</a></li>
+            </ul>
+          </div>  
+        </div>
+
+        <div class="logo-section">
+          <a href="accueil.php">
+            <img src="logo2.jpeg" alt="Logo Agora Francia" class="logo"/>
+          </a>
+          <h1>AGORA FRANCIA</h1>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-bar">
+      <div class="nav-content">
+        <ul class="nav-menu">
+          <li><a href="accueil.php">Accueil</a></li>
+          <li><a href="toutparcourir.php">Tout parcourir</a></li>
+          <li><a href="notification.php">Notifications</a></li>
+          <li><a href="panier.php">Panier</a></li>
+          <li><a href="redirection.php">Votre compte</a></li>
+        </ul>
+        <div class="header-top-right">
+          <a href="mailto:agorafrancia@gmail.com">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+        <h2>Introduction</h2>
+        <p>Les présentes mentions légales ont pour objectif d’informer l'utilisateur du site des informations essentielles concernant l'utilisation du site. En utilisant ce site, l'utilisateur accepte sans réserve les présentes modalités.</p>
+    </section>
+
+    <section>
+        <h2>CONDITIONS D'UTILISATION</h2>
+        <p>L'utilisation du site implique l'acceptation des conditions. L'accès est gratuit, mais les frais d'accès sont à la charge de l'utilisateur. AGORA FRANCIA assure la garantie des caractéristiques essentielles de ses produits. Cependant, elle décline toute responsabilité quant à l'utilisation ou à l'interprétation des informations présentes sur ce site.</p>
+        <p>La société AGORA FRANCIA décline toute responsabilité en cas de présence de virus pouvant infecter l’ordinateur ou tout autre équipement informatique de l’Internaute suite à l’utilisation, à l’accès ou au téléchargement de contenus depuis ce site.</p>
+    </section>
+
+    <section>
+        <h2>DROITS D'AUTEURS ET PROPRIÉTÉ INTELLECTUELLE</h2>
+        <p>Ce site est la propriété de AGORA FRANCIA, titulaire de tous les droits de propritété intellectuelle.Le contenu du site (textes, images, logos, vidéos) est protégé par des droits d'auteur et est la propriété de AGORA FRANCIA. 
+            Ce site, y compris sa structure générale, son design graphique et les éléments qu'il contient (formulaires, textes, photographies, images, etc.), constitue une œuvre protégée par les lois relatives à la propriété intellectuelle.</p>
+        <p>Ce site ne peut être copié, reproduits, modifiés, tramsis, publiés sans accords par AGORA FRANCIA.</p>
+        <p>Le non-respect de ces règles peut engager la responsabilité de l’internaute au sens des articles L. 713-2 et L.713-3 du Code de la Propriété Intellectuelle.</p>
+        <p>Crédit photo : google.com</p>
+    </section>
+
+
+    <section>
+        <h2>PROTECTION DES DONNÉES PERSONNELLES</h2>
+        <p>Conformément au RGPD, AGORA FRANCIA protège vos données. Vous pouvez exercer vos droits en nous contactant à <strong>agorafrancia@gmail.com</strong>.</p>
+        <p>Notre entreprise procède au traitement de données personnelles sur notre site internet. En utilisant notre site, vous acceptez notre politique de confidentialité.</p>      
+        <p>Les données personnelles sont conservées pendant la durée nécessaire à la fourniture du service, en tenant compte des exigences légales de conservation. Nous nous engageons à ne pas conserver vos données au-delà de cette durée.</p>
+        <p>Nous sommes les seuls à utiliser les informations collectées sur notre site. Vos données personnelles ne seront pas vendues, échangées, ou partagées avec des tiers sans votre consentement, sauf pour répondre à des demandes ou pour des transactions (par exemple, l’expédition d’une commande).</p>
+        <p>Nous mettons en place des mesures de sécurité afin de protéger vos informations personnelles, tant en ligne qu’hors ligne. Seuls les services ayant besoin de traiter des informations spécifiques (comme la facturation ou le service client) y ont accès. Les serveurs et ordinateurs contenant vos données sont protégés dans un environnement sécurisé.</p>
+        <p>Nous utilisons des cookies pour faciliter l'accès à notre site, identifier les visiteurs réguliers et améliorer l’expérience utilisateur. Ces cookies ne sont toutefois pas associés à des informations personnelles identifiables.</p>
+        <p>De plus, vous pouvez à tout moment vous désinscrire de nos communications par e-mail.</p>
+      </section>
+    </section>
+
+</main>
+  
+  <footer>
+    <p>&copy; 2025 ING2 TD3 GP1. Tous droits réservés.</p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      Contactez-nous :
+      <a href="mailto:agorafrancia@gmail.com" style="text-decoration: none; color: inherit;">agorafrancia@gmail.com</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="mentions.html" class="legal-link">Mentions légales</a>
+    </p>
+    <span style="font-size: 20px;">-</span>
+    <p style="display: inline-block; margin-left: 10px;">
+      <a href="conf.html" class="legal-link">Politique de Confidentialité</a>
+    </p>
+  </footer>
+</body>
+
+</html>
